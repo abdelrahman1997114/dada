@@ -39,7 +39,7 @@ function playMusic() {
 
 // 🎂 countdown
 // التاريخ: 5 مايو الساعة 5 مساءً
-const targetTime = new Date("May 5, 2026 17:00:00").getTime();
+const targetTime = new Date("May 5, 2027 17:00:00").getTime();
 
 setInterval(() => {
 
