@@ -1,25 +1,27 @@
 // popup
-function openImg(img){
+function openImg(img) {
     const popup = document.getElementById("popup");
     const popupImg = document.getElementById("popupImg");
 
-    if(popup && popupImg){
+    if (popup && popupImg) {
         popup.style.display = "flex";
         popupImg.src = img.src;
     }
 }
 
-function closeImg(){
+function closeImg() {
     const popup = document.getElementById("popup");
-    if(popup){
+
+    if (popup) {
         popup.style.display = "none";
     }
 }
 
 // message
-function showMessage(){
+function showMessage() {
     const msg = document.getElementById("message");
-    if(msg){
+
+    if (msg) {
         msg.style.display = "block";
     }
 }
@@ -27,42 +29,51 @@ function showMessage(){
 // 🎵 تشغيل الموسيقى
 function playMusic() {
     const audio = document.getElementById("bgMusic");
-    if(audio){
+
+    if (audio) {
         audio.play().catch(() => {
             console.log("المتصفح منع التشغيل التلقائي");
         });
     }
 }
 
-// countdown لبكرا الساعة 5
-function getTomorrowAt5PM(){
-    const now = new Date();
-    const target = new Date();
-
-    target.setDate(now.getDate() + 1);
-    target.setHours(17, 0, 0, 0);
-
-    return target.getTime();
-}
-
-let targetTime = getTomorrowAt5PM();
+// 🎂 countdown
+// التاريخ: 5 مايو الساعة 5 مساءً
+const targetTime = new Date("May 5, 2026 17:00:00").getTime();
 
 setInterval(() => {
+
     const now = new Date().getTime();
     const diff = targetTime - now;
 
     const countdownEl = document.getElementById("countdown");
-    if(!countdownEl) return;
 
-    if(diff <= 0){
-        countdownEl.innerHTML = "🎂 النهارده يومها 🎂";
+    if (!countdownEl) return;
+
+    // لو الوقت خلص
+    if (diff <= 0) {
+        countdownEl.innerHTML = "🎉 النهارده يومها 🎂";
         return;
     }
 
-    const h = Math.floor(diff / (1000*60*60));
-    const m = Math.floor((diff % (1000*60*60)) / (1000*60));
-    const s = Math.floor((diff % (1000*60)) / 1000);
+    // الحسابات
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    const hours = Math.floor(
+        (diff % (1000 * 60 * 60 * 24)) /
+        (1000 * 60 * 60)
+    );
+
+    const minutes = Math.floor(
+        (diff % (1000 * 60 * 60)) /
+        (1000 * 60)
+    );
+
+    const seconds = Math.floor(
+        (diff % (1000 * 60)) / 1000
+    );
 
     countdownEl.innerHTML =
-        `⏳ باقي ${h} ساعة و ${m} دقيقة و ${s} ثانية`;
+        `⏳ باقي ${days} يوم ${hours} ساعة ${minutes} دقيقة ${seconds} ثانية`;
+
 }, 1000);
